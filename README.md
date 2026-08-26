@@ -7,7 +7,7 @@ This project queries Sentinel-2 satellite imagery via the Microsoft Planetary Co
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 - **Cloud-Native STAC Pipeline**: Queries Sentinel-2 Cloud-Optimized GeoTIFFs (COGs) over a 2-year window using `pystac_client` and Planetary Computer.
 - **Raster Processing**: Processes multi-spectral satellite imagery at 10m–30m resolution using `xarray` and `rioxarray` to compute **NDVI**, **NBR**, and **dNBR** rasters.
@@ -16,7 +16,7 @@ This project queries Sentinel-2 satellite imagery via the Microsoft Planetary Co
 
 ---
 
-## 🧪 How It Works & Spectral Indices
+## How It Works & Spectral Indices
 
 ### 1. Normalized Difference Vegetation Index (NDVI)
 Measures green vegetation density using Red and Near-Infrared (NIR) bands.
@@ -44,7 +44,7 @@ VRI % = ((NBR_t - NBR_post_fire) / (NBR_pre_fire - NBR_post_fire)) * 100
 
 ---
 
-## 💡 Key Results
+## Key Results
 
 - **Area Analyzed**: 121,500 hectares (~300,000 acres) within the August Complex perimeter.
 - **Severe Burn Footprint**: ~58,620 hectares (`dNBR > 0.40`).
@@ -53,26 +53,7 @@ VRI % = ((NBR_t - NBR_post_fire) / (NBR_pre_fire - NBR_post_fire)) * 100
 
 ---
 
-## 📂 Project Structure
-
-```
-Wildfire-Case-Study/
-├── app.py                          # Streamlit web dashboard
-├── requirements.txt                # Dependencies
-├── README.md                       # Documentation
-├── notebooks/
-│   ├── 01_stac_query_and_nbr.ipynb # STAC ingestion & dNBR map creation
-│   └── 02_recovery_analysis.ipynb # Trajectory modeling & recovery stats
-└── data/
-    └── processed/
-        ├── august_complex_2020.geojson     # Bounding geometry
-        ├── august_complex_spectral_cube.nc # Processed NetCDF raster cube
-        └── recovery_trajectories.csv       # Summary data CSV
-```
-
----
-
-## 💻 Quick Start
+## Quick Start
 
 1. **Clone the repository**:
    ```bash
@@ -95,7 +76,7 @@ Wildfire-Case-Study/
 
 ---
 
-## 🛠️ Stack & Libraries
+## Stack & Libraries
 
 - **Geospatial**: `pystac_client`, `planetary_computer`, `xarray`, `rioxarray`, `geopandas`, `rasterio`
 - **Dashboard & Plotting**: `streamlit`, `plotly`, `folium`, `matplotlib`
