@@ -7,7 +7,7 @@ This project queries Sentinel-2 satellite imagery via the Microsoft Planetary Co
 
 ---
 
-## Project Overview
+## 📌 Project Overview
 
 - **Cloud-Native STAC Pipeline**: Queries Sentinel-2 Cloud-Optimized GeoTIFFs (COGs) over a 2-year window using `pystac_client` and Planetary Computer.
 - **Raster Processing**: Processes multi-spectral satellite imagery at 10m–30m resolution using `xarray` and `rioxarray` to compute **NDVI**, **NBR**, and **dNBR** rasters.
@@ -16,36 +16,63 @@ This project queries Sentinel-2 satellite imagery via the Microsoft Planetary Co
 
 ---
 
-## How It Works & Spectral Indices
+## 🧪 How It Works & Spectral Indices
 
 ### 1. Normalized Difference Vegetation Index (NDVI)
 Measures green vegetation density using Red and Near-Infrared (NIR) bands.
-$$\text{NDVI} = \frac{\text{NIR (B08)} - \text{Red (B04)}}{\text{NIR (B08)} + \text{Red (B04)}}$$
+```text
+NDVI = (B08_NIR - B04_Red) / (B08_NIR + B04_Red)
+```
 
 ### 2. Normalized Burn Ratio (NBR)
 Highlights burned areas and vegetation loss by comparing Near-Infrared (NIR) and Short-Wave Infrared (SWIR2).
-$$\text{NBR} = \frac{\text{NIR (B08)} - \text{SWIR2 (B12)}}{\text{NIR (B08)} + \text{SWIR2 (B12)}}$$
+```text
+NBR = (B08_NIR - B12_SWIR2) / (B08_NIR + B12_SWIR2)
+```
 
 ### 3. Delta NBR (dNBR / Burn Severity)
 Calculates the drop in NBR pre- and post-fire. Higher values indicate higher burn severity.
-$$\text{dNBR} = \text{NBR}_{\text{pre-fire}} - \text{NBR}_{\text{post-fire}}$$
+```text
+dNBR = NBR_pre_fire - NBR_post_fire
+```
 
 ### 4. Vegetation Recovery Index (VRI %)
 Quantifies the percentage of vegetation regrowth relative to the pre-fire baseline.
-$$\text{VRI \%} = \frac{\text{NBR}_t - \text{NBR}_{\text{post}}}{\text{NBR}_{\text{pre}} - \text{NBR}_{\text{post}}} \times 100$$
+```text
+VRI % = ((NBR_t - NBR_post_fire) / (NBR_pre_fire - NBR_post_fire)) * 100
+```
 
 ---
 
-## Key Results
+## 💡 Key Results
 
 - **Area Analyzed**: 121,500 hectares (~300,000 acres) within the August Complex perimeter.
-- **Severe Burn Footprint**: ~58,620 hectares ($\text{dNBR} > 0.40$).
+- **Severe Burn Footprint**: ~58,620 hectares (`dNBR > 0.40`).
 - **Year 1 Recovery**: Rebounded to **48.4%** of pre-fire baseline by July 2021.
 - **Year 2 Recovery**: Reached **77.6%** recovery by July 2022.
 
 ---
 
-## Quick Start
+## 📂 Project Structure
+
+```
+Wildfire-Case-Study/
+├── app.py                          # Streamlit web dashboard
+├── requirements.txt                # Dependencies
+├── README.md                       # Documentation
+├── notebooks/
+│   ├── 01_stac_query_and_nbr.ipynb # STAC ingestion & dNBR map creation
+│   └── 02_recovery_analysis.ipynb # Trajectory modeling & recovery stats
+└── data/
+    └── processed/
+        ├── august_complex_2020.geojson     # Bounding geometry
+        ├── august_complex_spectral_cube.nc # Processed NetCDF raster cube
+        └── recovery_trajectories.csv       # Summary data CSV
+```
+
+---
+
+## 💻 Quick Start
 
 1. **Clone the repository**:
    ```bash
@@ -68,7 +95,7 @@ $$\text{VRI \%} = \frac{\text{NBR}_t - \text{NBR}_{\text{post}}}{\text{NBR}_{\te
 
 ---
 
-## Stack & Libraries
+## 🛠️ Stack & Libraries
 
 - **Geospatial**: `pystac_client`, `planetary_computer`, `xarray`, `rioxarray`, `geopandas`, `rasterio`
 - **Dashboard & Plotting**: `streamlit`, `plotly`, `folium`, `matplotlib`
